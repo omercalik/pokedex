@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { React } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Pokemons from "./pages/Pokemons";
+import Home from "./pages/Home";
+import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
+import PokemonDetails from "./pages/PokemonDetails";
+import DexPage from "./pages/DexPage";
+import { useSelector } from "react-redux";
+import { darkTheme, lightTheme } from "./styles/theme";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./styles/global";
 
 function App() {
+  const themeState = useSelector((state) => state.theme);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={themeState === "light" ? lightTheme : darkTheme}>
+      <Router>
+        <div className="App">
+          <GlobalStyles />
+          <Navbar />
+          <div>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+
+              <Route exact path="/pokemons/:id">
+                <PokemonDetails />
+              </Route>
+              <Route path="/pokemons">
+                <Pokemons />
+              </Route>
+              <Route path="/dex">
+                <DexPage />
+              </Route>
+
+              <Route path="*">NOT FOUND</Route>
+            </Switch>
+          </div>
+
+          <Footer />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
