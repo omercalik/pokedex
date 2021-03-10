@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { StyledFooter } from "../styles/StyledFooter";
 import { lightTheme, darkTheme } from "../styles/theme";
 

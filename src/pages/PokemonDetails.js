@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PokeDetailCard from "../components/PokeDetailCard";
-import { darkTheme, lightTheme } from "../styles/theme";
+
 import { useSelector } from "react-redux";
-import { ThemeProvider } from "styled-components";
+
 const Pokedex = require("pokedex-promise-v2");
 
 const PokemonDetails = () => {

@@ -16,10 +16,15 @@ function Pokemons() {
   const [pokemonsNumber, setPokemonsNumber] = useState(20);
   const [pokemons, setPokemons] = useState([]);
   const [loadMore, setLoadMore] = useState(0);
-  const [isPending, setisPending] = useState(false);
 
   const P = new Pokedex();
   let urlArray = [];
+  let initArray = [];
+
+  for (let i = 1; i <= 20; i++) {
+    let str = fetchUrl + i;
+    initArray.push(str);
+  }
 
   const handleClick = () => {
     setPokeIndex(pokemonsNumber + 1);
@@ -29,7 +34,13 @@ function Pokemons() {
 
   const searchPokemon = (search) => {
     if (search === "") {
-      fetchPokemons();
+      P.resource(initArray)
+        .then((res) => {
+          setPokemons(res);
+          setPokeIndex(1);
+          setPokemonsNumber(20);
+        })
+        .catch((err) => console.log(err));
     } else {
       P.getPokemonByName(search)
         .then((response) => {
@@ -46,7 +57,6 @@ function Pokemons() {
       let str = fetchUrl + i;
       urlArray.push(str);
     }
-    setisPending(true);
 
     P.resource(urlArray).then(function (response) {
       if (loadMore === 0) {
@@ -58,7 +68,6 @@ function Pokemons() {
       }
 
       urlArray = [];
-      setisPending(false);
     });
   };
 
@@ -88,7 +97,7 @@ function Pokemons() {
           </Grid>
         )}
 
-        <LoadMoreBtn onClick={handleClick} />
+        {pokemons.length < 2 ? "" : <LoadMoreBtn onClick={handleClick} />}
       </div>
     </ThemeProvider>
   );

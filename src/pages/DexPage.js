@@ -32,8 +32,8 @@ const DexPage = () => {
         <h3>My Déx</h3>
         {dex &&
           dex.map((poke, i) => (
-            <div>
-              <Link key={poke.id} to={`/pokemons/${poke.id}`}>
+            <div key={poke.id}>
+              <Link to={`/pokemons/${poke.id}`}>
                 <img src={poke.pokeImage} alt="" />
                 <h4>{i + 1 + ". " + poke.pokeName.toUpperCase()}</h4>
               </Link>

@@ -42,7 +42,6 @@ const PokeDetailCard = ({ pokemon, info, character }) => {
       P.resource(info.evolution_chain.url)
         .then((response) => {
           if (response.chain.evolves_to.length === 0) {
-            console.log(response);
             setEvolutionArray([]);
           } else if (response.chain.evolves_to[0].evolves_to.length === 0) {
             P.resource([
@@ -201,7 +200,7 @@ const PokeDetailCard = ({ pokemon, info, character }) => {
             <h4>Type</h4>
             <div style={style}>
               {pokemon.types.map((type) => (
-                <PokeType type={type.type.name} />
+                <PokeType key={nanoid()} type={type.type.name} />
               ))}
             </div>
           </div>

@@ -15,7 +15,7 @@ const dexSlice = createSlice({
     pokeFavorite(state, action) {
       const { poke } = action.payload;
       const index = poke.i;
-      console.log(index);
+
       state.map((item, i) => {
         if (i === index) {
           item.favorite = !item.favorite;
